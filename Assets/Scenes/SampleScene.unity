@@ -154,10 +154,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c55984deb2216c43981b70ddd88c1d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpStrength: 0
-  slideForce: 0
-  isGroundedX: 0
+  jumpStrength: 10
+  slideStrength: 2
   isGroundedY: 0
+  isGroundedX: 0
+  xBurst: 0
+  yBurst: 0
 --- !u!50 &421713786
 Rigidbody2D:
   serializedVersion: 4
