@@ -61,11 +61,14 @@ public class PlayerController : MonoBehaviour
 
         CheckGrounded();
 
-        if(isGroundedX || isGroundedY)
+        if (isGroundedX || isGroundedY)
         {
+            rb.gravityScale = 0;
             xBurst = true;
             yBurst = true;
         }
+        else
+            rb.gravityScale = 1;
 
         
        
@@ -90,6 +93,7 @@ public class PlayerController : MonoBehaviour
                 rb.velocity = Vector2.zero;
                 rb.AddForce(new Vector2(xInput, 0) * jumpStrength,ForceMode2D.Impulse);
                 xBurst = false;
+                StartCoroutine(BurstOff(true));
             }
             
         }
@@ -104,9 +108,11 @@ public class PlayerController : MonoBehaviour
                 rb.velocity = Vector2.zero;
                 rb.AddForce(new Vector2(0, yInput) * jumpStrength,ForceMode2D.Impulse);
                 yBurst = false;
+                StartCoroutine(BurstOff(false));
             }
             
         }
+        //so input is only once per button press
         xBurstInput = false;
         yBurstInput = false;
     }
@@ -134,5 +140,14 @@ public class PlayerController : MonoBehaviour
         else
             isGroundedX = false;
 
+    }
+    //ensures the burst bool is off when airborne, allowing exactly one burst per axis before grounding again.
+    IEnumerator BurstOff(bool isXBurst)
+    {
+        yield return new WaitForSeconds(0.1f);
+        if (isXBurst)
+            xBurst = false;
+        else
+            yBurst = false;
     }
 }
